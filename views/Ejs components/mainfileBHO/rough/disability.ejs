@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disability Services | Best Home Care</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Remixicon Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Theme transition */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        /* Service card hover effects */
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .service-card:hover .service-image {
+            transform: scale(1.05);
+        }
+        
+        .service-card:hover .service-overlay {
+            opacity: 1;
+        }
+        
+        /* Service image container */
+        .service-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(30, 64, 175, 0.9) 0%, rgba(37, 99, 235, 0.5) 50%, transparent 100%);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        .dark .service-overlay {
+            background: linear-gradient(to top, rgba(30, 58, 138, 0.9) 0%, rgba(30, 64, 175, 0.6) 50%, transparent 100%);
+        }
+        
+        /* Section background */
+        .services-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .dark .services-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        
+        /* Hero overlay */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.85) 0%, rgba(37, 99, 235, 0.75) 50%, rgba(59, 130, 246, 0.7) 100%);
+        }
+        .dark .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(30, 64, 175, 0.85) 50%, rgba(37, 99, 235, 0.8) 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+
+    <!-- Theme Toggle Button (for testing - place at top) -->
+    <div class="container mx-auto px-4 py-6 flex justify-end">
+        <button id="themeToggle" class="flex items-center px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700">
+            <i id="themeIcon" class="ri-moon-line mr-2 text-lg"></i>
+            <span id="themeText" class="font-medium">Dark Mode</span>
+        </button>
+    </div>
+
+    <!-- Hero Section with Unsplash Image -->
+    <section class="relative w-full h-96 lg:h-[500px] overflow-hidden">
+        <!-- Pexels Image: Disability support and care -->
+        <img src="https://images.pexels.com/photos/6647026/pexels-photo-6647026.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+             alt="Disability support and care" 
+             class="absolute inset-0 w-full h-full object-cover object-center"
+             loading="lazy">
+        <!-- Blue Gradient Overlay -->
+        <div class="hero-overlay absolute inset-0"></div>
+        
+        <!-- Hero Content -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 animate-fade-in">
+            <div class="inline-flex items-center justify-center p-3 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                <i class="ri-heart-pulse-fill text-white text-4xl"></i>
+            </div>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+                Disability
+            </h1>
+            <div class="w-24 h-1 bg-white rounded-full mb-6"></div>
+            <p class="text-white text-xl md:text-2xl max-w-3xl drop-shadow-md">
+                Empowering lives through compassionate, personalised support services
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Portfolio Section -->
+    <section class="services-bg py-12 lg:py-20 animate-fade-in">
+        <div class="container mx-auto px-4">
+            <!-- Parent 1: Header Section -->
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12 lg:mb-16 animate-slide-up">
+                <!-- Child 1: Text Content -->
+                <div class="lg:w-2/3">
+                    <!-- Section Label -->
+                    <div class="inline-flex items-center mb-4">
+                        <div class="w-12 h-0.5 bg-primary-500 dark:bg-primary-400 mr-3"></div>
+                        <span class="text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider text-sm flex items-center">
+                            <i class="ri-service-line mr-2"></i>
+                            OUR SERVICES
+                        </span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        Disability Support Services
+                        <span class="text-primary-600 dark:text-primary-400"> We Provide</span>
+                    </h1>
+
+                    <!-- Description -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm">
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                            At Best of Homecare, we offer a comprehensive range of disability services designed to 
+                            support independence, enhance quality of life, and empower individuals to achieve their 
+                            personal goals through tailored, compassionate care.
+                        </p>
+                        
+                        <!-- Stats Row -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">500+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Clients Supported</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">15+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">50+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Dedicated Carers</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">100%</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Person-Centred</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Child 2: CTA Button -->
+                <div class="lg:w-1/3 flex justify-center lg:justify-end">
+                    <a href="#" class="group relative bg-gradient-to-r from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center animate-float">
+                        <span class="relative z-10">Explore All Services</span>
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center ml-3 group-hover:bg-white/30 transition-colors duration-300">
+                            <i class="ri-arrow-right-line"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-700 dark:to-primary-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="flex flex-wrap gap-3 mb-8 justify-center">
+                <button class="category-filter active px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-heart-pulse-line mr-2"></i>
+                    All Services
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-home-heart-line mr-2"></i>
+                    Homecare
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-group-line mr-2"></i>
+                    Community Access
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-car-line mr-2"></i>
+                    Transport
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-mental-health-line mr-2"></i>
+                    Support Coordination
+                </button>
+            </div>
+
+            <!-- Parent 2: Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up">
+                <!-- Service 1: Homecare -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                NDIS Approved
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-home-heart-line text-xl text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Homecare</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                            Support with personal care and everyday living activities.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Personal care assistance</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Daily living support</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Companionship</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 2: Community Access -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/6647030/pexels-photo-6647030.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Social Engagement
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-group-line text-xl text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Community Access</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                            Achieve goals for engaging in community, social, or recreational activities.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Social outings</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Recreational activities</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Community participation</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 3: Disability Transport -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/17749154/pexels-photo-17749154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Accessible
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-car-line text-xl text-purple-600 dark:text-purple-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Disability Transport</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                            Reliable and accessible transport services tailored to your needs.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Wheelchair accessible</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Door-to-door service</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Trained drivers</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 4: Support Coordination -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/7551610/pexels-photo-7551610.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                NDIS Support
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-amber-100 dark:bg-amber-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-compass-line text-xl text-amber-600 dark:text-amber-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Support Coordination</h3>
+                                <p class="text-sm text-primary-600 dark:text-primary-400">Psychosocial Recovery Coach</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                            Guiding you to make the most of your NDIS plan.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Plan management</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Provider connections</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Goal setting</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 5: Day Program -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/7653567/pexels-photo-7653567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Creative Therapies
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-pink-100 dark:bg-pink-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-palette-line text-xl text-pink-600 dark:text-pink-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Day Program</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                            For disabled adults, featuring art, music, and therapies to inspire growth and connection.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Art & music therapy</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Skill development</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Social connection</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 6: Accommodation: SIL & SDA -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                SIL & SDA
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-home-8-line text-xl text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Accommodation: SIL & SDA</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                            Accommodation solutions fostering independence, comfort, and quality of life.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Supported Independent Living</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Specialist Disability Accommodation</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">24/7 support available</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Services -->
+            <div class="text-center mt-12">
+                <div class="inline-flex items-center">
+                    <div class="w-8 h-0.5 bg-primary-500 dark:bg-primary-400 mr-3"></div>
+                    <button class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-3 px-8 rounded-lg transition-all duration-300 flex items-center">
+                        <i class="ri-add-line mr-2"></i>
+                        Load More Services
+                    </button>
+                    <div class="w-8 h-0.5 bg-primary-500 dark:bg-primary-400 ml-3"></div>
+                </div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-4">
+                    Showing 6 of our comprehensive disability support services
+                </p>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="mt-16 bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-lg">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">What Our Clients Say</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-user-line text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900 dark:text-white">Sarah Thompson</div>
+                                <div class="text-gray-600 dark:text-gray-400 text-sm">NDIS Participant</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">
+                            "The support coordination team helped me navigate my NDIS plan and connect with amazing providers. I feel more in control of my life now."
+                        </p>
+                        <div class="flex text-yellow-400 mt-3">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-user-line text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900 dark:text-white">Michael Chen</div>
+                                <div class="text-gray-600 dark:text-gray-400 text-sm">Family Caregiver</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">
+                            "The day program has been transformative for my son. He looks forward to his art therapy sessions and has made genuine friends."
+                        </p>
+                        <div class="flex text-yellow-400 mt-3">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-user-line text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900 dark:text-white">Jennifer Williams</div>
+                                <div class="text-gray-600 dark:text-gray-400 text-sm">Support Coordinator</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">
+                            "The SIL accommodation options are fantastic. My clients have found safe, comfortable homes where they can truly thrive."
+                        </p>
+                        <div class="flex text-yellow-400 mt-3">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-half-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Theme functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        
+        // Check for saved theme preference or use default
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        // Apply theme on page load
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            updateThemeUI('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            updateThemeUI('light');
+        }
+        
+        // Update theme UI elements
+        function updateThemeUI(theme) {
+            if (themeIcon && themeText) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'ri-sun-line mr-2 text-lg';
+                    themeText.textContent = 'Light Mode';
+                } else {
+                    themeIcon.className = 'ri-moon-line mr-2 text-lg';
+                    themeText.textContent = 'Dark Mode';
+                }
+            }
+        }
+        
+        // Toggle theme function
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateThemeUI('light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateThemeUI('dark');
+            }
+        }
+        
+        // Add event listener for theme toggle
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.documentElement.classList.add('dark');
+                    updateThemeUI('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    updateThemeUI('light');
+                }
+            }
+        });
+
+        // Category filter functionality
+        document.querySelectorAll('.category-filter').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.category-filter').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Here you would typically filter services based on category
+                const category = button.textContent.trim();
+                console.log(`Filtering services by category: ${category}`);
+            });
+        });
+
+        // Service card hover effects
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const image = card.querySelector('.service-image');
+                if (image) {
+                    image.style.transform = 'scale(1.05)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const image = card.querySelector('.service-image');
+                if (image) {
+                    image.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accommodation Services | Best Home Care</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Remixicon Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Theme transition */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        /* Service card hover effects */
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .service-card:hover .service-image {
+            transform: scale(1.05);
+        }
+        
+        .service-card:hover .service-overlay {
+            opacity: 1;
+        }
+        
+        /* Service image container */
+        .service-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(30, 64, 175, 0.9) 0%, rgba(37, 99, 235, 0.5) 50%, transparent 100%);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        .dark .service-overlay {
+            background: linear-gradient(to top, rgba(30, 58, 138, 0.9) 0%, rgba(30, 64, 175, 0.6) 50%, transparent 100%);
+        }
+        
+        /* Section background */
+        .services-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .dark .services-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        
+        /* Category filter */
+        .category-filter {
+            transition: all 0.3s ease;
+        }
+        
+        .category-filter:hover {
+            transform: translateY(-2px);
+        }
+        
+        .category-filter.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .dark .category-filter.active {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+        }
+        
+        /* Hero overlay */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.85) 0%, rgba(37, 99, 235, 0.75) 50%, rgba(59, 130, 246, 0.7) 100%);
+        }
+        .dark .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(30, 64, 175, 0.85) 50%, rgba(37, 99, 235, 0.8) 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+
+    <!-- Theme Toggle Button (for testing - place at top) -->
+    <div class="container mx-auto px-4 py-6 flex justify-end">
+        <button id="themeToggle" class="flex items-center px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700">
+            <i id="themeIcon" class="ri-moon-line mr-2 text-lg"></i>
+            <span id="themeText" class="font-medium">Dark Mode</span>
+        </button>
+    </div>
+
+    <!-- Hero Section with Unsplash Image -->
+    <section class="relative w-full h-96 lg:h-[500px] overflow-hidden">
+        <!-- Pexels Image: Modern accessible home exterior -->
+        <img src="https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+             alt="Modern accessible home" 
+             class="absolute inset-0 w-full h-full object-cover object-center"
+             loading="lazy">
+        <!-- Blue Gradient Overlay -->
+        <div class="hero-overlay absolute inset-0"></div>
+        
+        <!-- Hero Content -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 animate-fade-in">
+            <div class="inline-flex items-center justify-center p-3 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                <i class="ri-home-8-line text-white text-4xl"></i>
+            </div>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+                Accommodation
+            </h1>
+            <div class="w-24 h-1 bg-white rounded-full mb-6"></div>
+            <p class="text-white text-xl md:text-2xl max-w-3xl drop-shadow-md">
+                Safe, comfortable, and supportive housing options tailored to your needs
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Portfolio Section -->
+    <section class="services-bg py-12 lg:py-20 animate-fade-in">
+        <div class="container mx-auto px-4">
+            <!-- Parent 1: Header Section -->
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12 lg:mb-16 animate-slide-up">
+                <!-- Child 1: Text Content -->
+                <div class="lg:w-2/3">
+                    <!-- Section Label -->
+                    <div class="inline-flex items-center mb-4">
+                        <div class="w-12 h-0.5 bg-primary-500 dark:bg-primary-400 mr-3"></div>
+                        <span class="text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider text-sm flex items-center">
+                            <i class="ri-home-8-line mr-2"></i>
+                            ACCOMMODATION SERVICES
+                        </span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        Housing & Living Options
+                        <span class="text-primary-600 dark:text-primary-400"> We Provide</span>
+                    </h1>
+
+                    <!-- Description -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm">
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                            At Best of Homecare, we offer a range of accommodation solutions designed to provide 
+                            safe, comfortable, and supportive living environments. From independent living with 
+                            support to specialised housing, we help you find the perfect place to call home.
+                        </p>
+                        
+                        <!-- Stats Row -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">50+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Homes Available</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">200+</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Residents</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">100%</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Accessible</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-primary-600 dark:text-primary-400">24/7</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Support Available</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Child 2: CTA Button -->
+                <div class="lg:w-1/3 flex justify-center lg:justify-end">
+                    <a href="#" class="group relative bg-gradient-to-r from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center animate-float">
+                        <span class="relative z-10">Explore All Options</span>
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center ml-3 group-hover:bg-white/30 transition-colors duration-300">
+                            <i class="ri-arrow-right-line"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-700 dark:to-primary-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="flex flex-wrap gap-3 mb-8 justify-center">
+                <button class="category-filter active px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-home-8-line mr-2"></i>
+                    All Accommodation
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-home-4-line mr-2"></i>
+                    SIL
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-building-4-line mr-2"></i>
+                    SDA
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-hotel-line mr-2"></i>
+                    Respite
+                </button>
+                <button class="category-filter px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full font-medium transition-all duration-300 flex items-center">
+                    <i class="ri-home-heart-line mr-2"></i>
+                    ILO
+                </button>
+            </div>
+
+            <!-- Parent 2: Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up">
+                <!-- Service 1: SIL -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1571470/pexels-photo-1571470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                NDIS Approved
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-home-4-line text-2xl text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">SIL</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-base mb-4">
+                            Providing support for independent living in a safe, comfortable home.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">24/7 support available</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Shared or individual living</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Skill development</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 2: SDA -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Specialist Housing
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-building-4-line text-2xl text-purple-600 dark:text-purple-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">SDA</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-base mb-4">
+                            Housing designed for accessibility and independence.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Purpose-built design</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">High physical support</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Fully accessible features</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 3: Respite -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/164522/pexels-photo-164522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Short-Term Stay
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-hotel-line text-2xl text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Respite</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-base mb-4">
+                            Providing short-term support in a safe and comfortable environment.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Emergency respite available</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Planned short breaks</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">24/7 care provided</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 4: ILO -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Flexible Living
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-home-heart-line text-2xl text-amber-600 dark:text-amber-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">ILO</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-base mb-4">
+                            Flexible support for a self-sufficient and comfortable lifestyle.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Choose who you live with</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Personalised support</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Flexible arrangements</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 5: BHC Farm Stay -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/158834/fields-farm-land-agriculture-158834.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Nature Retreat
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-tree-line text-2xl text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">BHC Farm Stay</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-base mb-4">
+                            A relaxing farm stay with comfort and nature activities.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Farm activities</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Peaceful countryside</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Accessible accommodation</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 6: Post Hospital -->
+                <div class="service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="service-image-container h-56">
+                        <div class="service-image w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/6647026/pexels-photo-6647026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+                        <div class="service-overlay"></div>
+                        <!-- Service Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                Recovery Support
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-hospital-line text-2xl text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Post Hospital</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300 text-base mb-4">
+                            Supportive care for a smooth and safe recovery after hospital discharge.
+                        </p>
+                        
+                        <!-- Key Features -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Medical monitoring</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Rehabilitation support</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                                <span class="text-gray-600 dark:text-gray-400">Personal care assistance</span>
+                            </div>
+                        </div>
+                        
+                        <!-- View Button -->
+                        <button class="w-full border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium py-2 rounded-lg transition-all duration-300 flex items-center justify-center">
+                            <i class="ri-eye-line mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Services -->
+            <div class="text-center mt-12">
+                <div class="inline-flex items-center">
+                    <div class="w-8 h-0.5 bg-primary-500 dark:bg-primary-400 mr-3"></div>
+                    <button class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-3 px-8 rounded-lg transition-all duration-300 flex items-center">
+                        <i class="ri-add-line mr-2"></i>
+                        Load More Options
+                    </button>
+                    <div class="w-8 h-0.5 bg-primary-500 dark:bg-primary-400 ml-3"></div>
+                </div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-4">
+                    Showing 6 of our accommodation options
+                </p>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="mt-16 bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-lg">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">What Our Residents Say</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-user-line text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900 dark:text-white">James Wilson</div>
+                                <div class="text-gray-600 dark:text-gray-400 text-sm">SIL Resident</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">
+                            "My SIL home has given me the independence I always wanted with the support I need. The staff are amazing and my housemates have become like family."
+                        </p>
+                        <div class="flex text-yellow-400 mt-3">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-user-line text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900 dark:text-white">Patricia Lee</div>
+                                <div class="text-gray-600 dark:text-gray-400 text-sm">SDA Resident</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">
+                            "My SDA apartment is perfectly designed for my needs. I can move around freely and independently. It's truly my home."
+                        </p>
+                        <div class="flex text-yellow-400 mt-3">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-user-line text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900 dark:text-white">Michael Chen</div>
+                                <div class="text-gray-600 dark:text-gray-400 text-sm">Family Caregiver</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">
+                            "The respite care gave our family a much-needed break while ensuring my brother was well cared for. He loved his stay and made new friends."
+                        </p>
+                        <div class="flex text-yellow-400 mt-3">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-half-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Theme functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        
+        // Check for saved theme preference or use default
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        // Apply theme on page load
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            updateThemeUI('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            updateThemeUI('light');
+        }
+        
+        // Update theme UI elements
+        function updateThemeUI(theme) {
+            if (themeIcon && themeText) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'ri-sun-line mr-2 text-lg';
+                    themeText.textContent = 'Light Mode';
+                } else {
+                    themeIcon.className = 'ri-moon-line mr-2 text-lg';
+                    themeText.textContent = 'Dark Mode';
+                }
+            }
+        }
+        
+        // Toggle theme function
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateThemeUI('light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateThemeUI('dark');
+            }
+        }
+        
+        // Add event listener for theme toggle
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.documentElement.classList.add('dark');
+                    updateThemeUI('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    updateThemeUI('light');
+                }
+            }
+        });
+
+        // Category filter functionality
+        document.querySelectorAll('.category-filter').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.category-filter').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Here you would typically filter services based on category
+                const category = button.textContent.trim();
+                console.log(`Filtering services by category: ${category}`);
+            });
+        });
+
+        // Service card hover effects
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const image = card.querySelector('.service-image');
+                if (image) {
+                    image.style.transform = 'scale(1.05)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const image = card.querySelector('.service-image');
+                if (image) {
+                    image.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

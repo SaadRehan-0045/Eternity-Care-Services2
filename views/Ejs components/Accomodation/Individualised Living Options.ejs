@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individualised Living Options (ILO) | Best Home Care</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Remixicon Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.3s ease-in-out',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                        'fade-in-right': 'fadeInRight 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Theme transition for all elements */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease, stroke 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Better dark mode contrast */
+        .dark body {
+            color-scheme: dark;
+        }
+
+        /* Feature card hover effect */
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .dark .feature-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hero image overlay - matches header */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.85) 0%, rgba(37, 99, 235, 0.75) 50%, rgba(59, 130, 246, 0.7) 100%);
+        }
+        .dark .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(30, 64, 175, 0.85) 50%, rgba(37, 99, 235, 0.8) 100%);
+        }
+
+        /* Parallax background effect */
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .parallax-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(37, 99, 235, 0.85) 50%, rgba(59, 130, 246, 0.8) 100%);
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        .dark .parallax-overlay {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(30, 64, 175, 0.9) 50%, rgba(37, 99, 235, 0.85) 100%);
+        }
+
+        /* Button hover effect */
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+        .btn-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Living option card */
+        .living-option-card {
+            transition: all 0.3s ease;
+        }
+        .living-option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Stage card styling */
+        .stage-card {
+            transition: all 0.3s ease;
+        }
+        .stage-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+        }
+
+        /* Process step */
+        .process-step {
+            transition: all 0.3s ease;
+        }
+        .process-step:hover {
+            transform: translateX(5px);
+            background-color: #f0f9ff;
+        }
+        .dark .process-step:hover {
+            background-color: #1e3a8a20;
+        }
+
+        /* Who can I live with card */
+        .who-card {
+            transition: all 0.3s ease;
+        }
+        .who-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<%- include('../header.ejs') %> 
+<br>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen font-sans antialiased">
+    <!-- Hero Section with Unsplash Image - Personalized living space -->
+    <section class="relative w-full h-96 lg:h-[550px] overflow-hidden">
+        <!-- Unsplash/Pexels Image: Comfortable, personalized living space -->
+        <img src="https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+             alt="Personalized living space" 
+             class="absolute inset-0 w-full h-full object-cover object-center"
+             loading="lazy">
+        <!-- Blue Gradient Overlay - matches header theme -->
+        <div class="hero-overlay absolute inset-0"></div>
+        
+        <!-- Hero Content -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 animate-fade-in-up">
+            <div class="inline-flex items-center justify-center p-3 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                <i class="ri-home-heart-line text-white text-3xl"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                Individualised Living Options (ILO)
+            </h1>
+            <div class="w-24 h-1 bg-white rounded-full mb-6"></div>
+            <p class="text-white text-xl md:text-2xl max-w-3xl drop-shadow-md font-medium">
+                Design Your Life, Your Way
+            </p>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="container mx-auto px-4 py-16 md:py-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center p-2 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-6">
+                    <i class="ri-home-8-line text-blue-600 dark:text-blue-400 text-2xl mx-2"></i>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 text-lg md:text-xl leading-relaxed max-w-4xl mx-auto">
+                    At Best of Homecare, we are dedicated to helping individuals with disabilities live in a way that aligns with their personal needs, preferences, and goals. Our Individualised Living Options (ILO) provide flexible, tailored support that empowers you to choose your living arrangements and the type of assistance you receive. Whether you prefer living independently or sharing a home with others, we are here to make that possible.
+                </p>
+                <div class="mt-8">
+                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                        <span>See more</span>
+                        <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                    <span class="mx-3 text-gray-300 dark:text-gray-600">|</span>
+                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                        <span>Accommodation</span>
+                        <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Is ILO Section with Image -->
+    <section class="bg-white dark:bg-gray-800 py-16 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Image Side -->
+                <div class="lg:w-1/2 animate-fade-in-right">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://images.pexels.com/photos/1571470/pexels-photo-1571470.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+                             alt="Individualised living space" 
+                             class="w-full h-auto object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 bg-white dark:bg-gray-800 px-6 py-3 rounded-full shadow-lg">
+                            <p class="text-blue-600 dark:text-blue-400 font-semibold flex items-center">
+                                <i class="ri-home-4-line mr-2"></i> ILO Living
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Side -->
+                <div class="lg:w-1/2 space-y-6 animate-fade-in-up">
+                    <div class="inline-flex items-center p-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                        <i class="ri-question-line text-blue-600 dark:text-blue-400 mr-2"></i>
+                        <span class="text-blue-600 dark:text-blue-400 font-medium">What Is Individualised Living Option (ILO)?</span>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">
+                        NDIS-Funded Program for <span class="text-blue-600 dark:text-blue-400">Personalized Living</span>
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                        ILO is an NDIS-funded program designed to support individuals in choosing where and how they live. With ILO, you can enjoy the freedom to design your own living space, ensuring it is customized to suit your unique lifestyle. Best of Homecare's ILO service ensures that you have the support you need to thrive in an environment that feels like home.
+                    </p>
+                    
+                    <!-- Enquire Now Button -->
+                    <div class="pt-4">
+                        <a href="#enquire" class="btn-hover inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all duration-300">
+                            <i class="ri-chat-1-line mr-2 text-xl"></i>
+                            Enquire Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center">
+            Individualised Living Option (ILO)
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-12 text-center">
+            Key Features
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            
+            <!-- Feature 1: Personalized Living Arrangements -->
+            <div class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center mb-4">
+                    <i class="ri-home-4-line text-3xl text-blue-600 dark:text-blue-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">Personalized Living Arrangements</h3>
+                <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                    <li class="flex items-start">
+                        <i class="ri-checkbox-circle-fill text-blue-600 dark:text-blue-400 text-lg mr-2 mt-0.5"></i>
+                        <span>Choose from various living options such as living independently with support, sharing a home with others, or living with a host family.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="ri-checkbox-circle-fill text-blue-600 dark:text-blue-400 text-lg mr-2 mt-0.5"></i>
+                        <span>Tailored support that meets your specific needs, whether that means assistance with daily living tasks or having a companion to share your home.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Feature 2: Greater Flexibility and Independence -->
+            <div class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-green-100 dark:bg-green-900/40 rounded-2xl flex items-center justify-center mb-4">
+                    <i class="ri-flight-takeoff-line text-3xl text-green-600 dark:text-green-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">Greater Flexibility and Independence</h3>
+                <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                    <li class="flex items-start">
+                        <i class="ri-checkbox-circle-fill text-green-600 dark:text-green-400 text-lg mr-2 mt-0.5"></i>
+                        <span>With ILO, you have the opportunity to live in the setting that suits you best—whether it's in your own home or a shared arrangement.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="ri-checkbox-circle-fill text-green-600 dark:text-green-400 text-lg mr-2 mt-0.5"></i>
+                        <span>Choose your housemates, and decide on your level of support, making your living arrangement more independent and self-directed.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Feature 3: Support Beyond the Home -->
+            <div class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/40 rounded-2xl flex items-center justify-center mb-4">
+                    <i class="ri-group-line text-3xl text-purple-600 dark:text-purple-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">Support Beyond the Home</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    We help connect you to the services you need beyond your home, including work, social activities, and community engagement.
+                </p>
+            </div>
+
+            <!-- Feature 4: Collaborative Planning -->
+            <div class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/40 rounded-2xl flex items-center justify-center mb-4">
+                    <i class="ri-team-line text-3xl text-amber-600 dark:text-amber-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">Collaborative Planning</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Work with our experienced team to create a personalized plan that reflects your needs, goals, and preferences. We consider all aspects of your life, including your social connections, routines, and future aspirations.
+                </p>
+            </div>
+        </div>
+
+        <!-- Enquire Now Button -->
+        <div class="text-center mt-12">
+            <a href="#enquire" class="btn-hover inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full shadow-lg transition-all duration-300">
+                <i class="ri-chat-1-line mr-2 text-xl"></i>
+                Enquire Now
+            </a>
+        </div>
+    </section>
+
+    <!-- A New Approach to Living Section -->
+    <section class="bg-blue-50 dark:bg-blue-900/20 py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+                    A New Approach to Living – <span class="text-blue-600 dark:text-blue-400">Tailored to You</span>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                    Individualised Living Options allow you to create the life you want—on your terms. With ILO, you can choose from a variety of living arrangements, whether that means living independently with personalized support, sharing a home with housemates, or finding a welcoming host family who can provide the care you need.
+                </p>
+                <p class="text-gray-600 dark:text-gray-300 text-lg">
+                    The process begins with you. You decide what feels right for your lifestyle, and we work alongside you to make it a reality. There's no one-size-fits-all approach here—just a deep, personalized plan that reflects who you are and what you want from your living experience.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who can I live with? Section -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+            Who can I <span class="text-blue-600 dark:text-blue-400">live with?</span>
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-12 text-center max-w-3xl mx-auto">
+            At Best of Homecare, we understand that everyone has unique preferences when it comes to choosing their living arrangements. With our Individualised Living Options (ILO) service, you have the freedom to decide who you live with. Here are some possibilities:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Option 1: Living with a Host -->
+            <div class="who-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <i class="ri-home-4-line text-3xl text-blue-600 dark:text-blue-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">Host</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    You might prefer to live in the home of a host, such as a family or a non-related person who offers a welcoming and supportive environment. Hosts can provide companionship, a home-like atmosphere, and an agreed level of support. Through your NDIS plan, hosts can be reimbursed for providing in-home supports tailored to your needs.
+                </p>
+            </div>
+
+            <!-- Option 2: Living with Housemates -->
+            <div class="who-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-green-100 dark:bg-green-900/40 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <i class="ri-group-line text-3xl text-green-600 dark:text-green-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">Shared</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    You can choose to live with one or more housemates who can provide support or companionship. This could include friends, family members, or even an intimate partner. With the right arrangement, your NDIS plan may help reduce your housemates' rental costs, making shared living more affordable and collaborative.
+                </p>
+            </div>
+
+            <!-- Option 3: Living Alone -->
+            <div class="who-card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/40 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <i class="ri-user-star-line text-3xl text-purple-600 dark:text-purple-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">Independent</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    If you'd like to live on your own, we can help you make it happen. Whether you rely on family, friends, or neighbours for occasional assistance, we can help arrange a package of flexible drop-in supports to ensure you remain safe, comfortable, and independent in your own space.
+                </p>
+            </div>
+        </div>
+
+        <p class="text-gray-600 dark:text-gray-300 text-center mt-10 max-w-3xl mx-auto">
+            At Best of Homecare, we're here to help you explore all the options and find a living arrangement that best suits your lifestyle, needs, and aspirations.
+        </p>
+    </section>
+
+    <!-- Best Of Homecare - Our Process -->
+    <section class="bg-white dark:bg-gray-800 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center">
+                Best Of Homecare
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 text-center max-w-3xl mx-auto">
+                At Best of Homecare, our Individualised Living Options (ILO) service is designed to guide you through two key stages, ensuring your living arrangements reflect your unique needs and preferences.
+            </p>
+            <p class="text-gray-600 dark:text-gray-300 mb-12 text-center max-w-2xl mx-auto">
+                The journey begins here. We collaborate closely with you and your support network to determine:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Stage 1: Exploration and Design -->
+                <div class="stage-card bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">1</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white">Stage 1</h3>
+                    </div>
+                    <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4">Exploration and Design</h4>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        The journey begins here. We collaborate closely with you and your support network to determine:
+                    </p>
+                    <ul class="space-y-2 text-gray-600 dark:text-gray-400 mb-4">
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-fill text-blue-600 dark:text-blue-400 text-lg mr-2"></i>
+                            <span>Where you want to live</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-fill text-blue-600 dark:text-blue-400 text-lg mr-2"></i>
+                            <span>Who you want to live with</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-fill text-blue-600 dark:text-blue-400 text-lg mr-2"></i>
+                            <span>The supports you'll need in your new home</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-fill text-blue-600 dark:text-blue-400 text-lg mr-2"></i>
+                            <span>Who you'd like to provide those supports</span>
+                        </li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        Together, we design a plan tailored to your goals. This includes the type of living arrangements you desire and the supports required, even accounting for informal support from friends and family. The Exploration and Design stage lays the foundation for your ideal living environment.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        This stage typically takes between 3 to 12 months, during which we'll work with you to submit an ILO Service Proposal to the NDIA for approval. It can be funded through your NDIS plan, either under core supports or capacity-building support coordination funding, allowing you to explore your home and living preferences thoroughly.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline mt-2">
+                        LEARN MORE <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Stage 2: Supports and Monitoring -->
+                <div class="stage-card bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-2xl font-bold text-green-600 dark:text-green-400">2</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white">Stage 2</h3>
+                    </div>
+                    <h4 class="text-xl font-bold text-green-600 dark:text-green-400 mb-4">Supports and Monitoring</h4>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        Once your ILO Service Proposal is approved, we'll implement the plan and help you settle comfortably into your new home. Our team will be there every step of the way, providing ongoing support and regularly checking in to ensure everything is working as planned.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        If adjustments are needed, we'll work with you to make the necessary changes, ensuring your living arrangements continue to meet your needs.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        At Best of Homecare, we're committed to supporting you throughout your ILO journey, helping you achieve a living arrangement where you feel empowered, supported, and truly at home.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-green-600 dark:text-green-400 font-medium hover:underline mt-2">
+                        LEARN MORE <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Background Section: WHY CHOOSE US -->
+    <section class="parallax-section relative py-24 md:py-32" style="background-image: url('https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="parallax-overlay"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="inline-flex items-center justify-center p-3 bg-white/20 backdrop-blur-sm rounded-full mb-8">
+                    <i class="ri-star-smile-line text-3xl"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">WHY CHOOSE US</h2>
+                <div class="w-24 h-1 bg-white/50 rounded-full mx-auto mb-8"></div>
+                <p class="text-xl md:text-2xl leading-relaxed text-white/95 mb-6">
+                    At Best of Homecare, we believe everyone deserves to live in a place where they feel safe, supported, and independent. Our team works closely with you to design a living arrangement that fits your unique needs and aspirations. With years of experience in disability care, we offer compassionate and respectful services that prioritise your independence and well-being.
+                </p>
+                <p class="text-lg md:text-xl leading-relaxed text-white/90">
+                    Our Individualised Living Options empower you to take control of your living situation while providing the right level of support to help you thrive. From tailored care to professional insights, we ensure every step of your journey is guided by empathy, understanding, and expertise.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Today Section -->
+    <section class="container mx-auto px-4 py-16 md:py-20">
+        <div class="max-w-5xl mx-auto bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950 rounded-3xl p-10 md:p-16 shadow-2xl text-white">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center p-3 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                    <i class="ri-phone-line text-2xl"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Contact Us Today</h2>
+                <p class="text-xl md:text-2xl leading-relaxed mb-8 text-white/90 max-w-3xl mx-auto">
+                    If you're ready to explore how Best of Homecare's Individualised Living Options can work for you, get in touch with us today. Our team is ready to guide you through the process and support you in creating a living arrangement that is as unique as you are.
+                </p>
+                
+                <!-- Phone Number -->
+                <div class="flex justify-center mb-6">
+                    <a href="tel:1300513309" class="text-4xl md:text-5xl font-bold text-white hover:underline flex items-center">
+                        <i class="ri-phone-line mr-4 text-3xl"></i>
+                        1300 513 309
+                    </a>
+                </div>
+
+                <!-- Final CTA Button -->
+                <div>
+                    <a href="#" class="btn-hover inline-flex items-center bg-white text-blue-700 font-bold px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-xl">
+                        <i class="ri-chat-1-line mr-2"></i>
+                        Start Your ILO Journey
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+<%- include('../footer.ejs') %> 
+    <!-- Theme Toggle JavaScript (matches header system) -->
+    <script>
+        (function() {
+            'use strict';
+
+            // Theme initialization
+            function initTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+                
+                if (currentTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    updateThemeUI('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    updateThemeUI('light');
+                }
+            }
+            
+            // Update UI elements
+            function updateThemeUI(theme) {
+                const themeIcon = document.getElementById('themeIcon');
+                const themeText = document.getElementById('themeText');
+                
+                if (themeIcon) {
+                    themeIcon.className = theme === 'dark' ? 'ri-sun-line mr-2 text-lg' : 'ri-moon-line mr-2 text-lg';
+                }
+                if (themeText) {
+                    themeText.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+                }
+            }
+            
+            // Toggle theme
+            window.toggleTheme = function() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    updateThemeUI('light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    updateThemeUI('dark');
+                }
+            };
+
+            // Event listeners
+            function initThemeToggle() {
+                const themeToggle = document.getElementById('themeToggle');
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.toggleTheme();
+                    });
+                }
+            }
+
+            // Initialize on load
+            document.addEventListener('DOMContentLoaded', function() {
+                initTheme();
+                initThemeToggle();
+            });
+
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    if (e.matches) {
+                        document.documentElement.classList.add('dark');
+                        updateThemeUI('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        updateThemeUI('light');
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
